@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # */AIPND-revision/intropyproject-classify-pet-images/classify_images.py
 #                                                                             
-# PROGRAMMER: 
-# DATE CREATED:                                 
+# PROGRAMMER: Igor I.
+# DATE CREATED:  2021-04-17                     
 # REVISED DATE: 
 # PURPOSE: Create a function classify_images that uses the classifier function 
 #          to create the classifier labels and then compares the classifier 
@@ -12,7 +12,7 @@
 #             and as in_arg.dir for function call within main. 
 #            -The results dictionary as results_dic within classify_images 
 #             function and results for the functin call within main.
-#            -The CNN model architecture as model within classify_images function
+#            -The CNN model architecture as model wihtin classify_images function
 #             and in_arg.arch for the function call within main. 
 #           This function uses the extend function to add items to the list 
 #           that's the 'value' of the results dictionary. You will be adding the
@@ -65,4 +65,13 @@ def classify_images(images_dir, results_dic, model):
      Returns:
            None - results_dic is mutable data type so no return needed.         
     """
-    None 
+    for dog_file in results_dic:
+        dog_file_path = images_dir + dog_file
+        img_classification = classifier(dog_file_path, model)
+        img_classification = img_classification.strip().lower()
+        
+        if results_dic[dog_file][0] in img_classification:
+            results_dic[dog_file].extend([img_classification, 1])
+        else:
+            results_dic[dog_file].extend([img_classification, 0])
+          
